@@ -4,7 +4,7 @@
         <div class="small-6 columns">
             <h1 class="text-center">SEN</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+                <div :style="{width : player_heal + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
                     {{player_heal}}%
                 </div>
             </div>
@@ -12,7 +12,7 @@
         <div class="small-6 columns">
             <h1 class="text-center">CANAVAR</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+                <div :style="{width : monster_heal + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
                     {{monster_heal}}%
                 </div>
             </div>
@@ -68,7 +68,7 @@ export default {
 
       specialAttack : function(){
         var point = Math.ceil(Math.random() * 25);
-        this.player_heal += point;
+        this.monster_heal -= point;
         this.monsterAttack();
       },
 
@@ -86,6 +86,22 @@ export default {
         this.player_heal -= point;
       }
 
+  },
+
+  watch : {
+      player_heal : function(value){
+          if(value <= 0){
+              this.player_heal = 0;
+          } else if(value >= 100){
+              this.player_heal = 100;
+          }
+      },
+
+       monster_heal : function(value){
+          if(value <= 0){
+              this.monster_heal = 0;
+          }
+      }
   }
  
 }
