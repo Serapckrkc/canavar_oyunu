@@ -5,7 +5,7 @@
             <h1 class="text-center">SEN</h1>
             <div class="healthbar">
                 <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                    {{player_heal}}%
                 </div>
             </div>
         </div>
@@ -13,7 +13,7 @@
             <h1 class="text-center">CANAVAR</h1>
             <div class="healthbar">
                 <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                    {{monster_heal}}%
                 </div>
             </div>
         </div>
@@ -64,37 +64,26 @@ export default {
         var point = Math.ceil(Math.random() * 10);
         this.monster_heal -= point;
         this.monsterAttack();
-        console.log("M : " + this.monster_heal);
-        console.log("P : " + this.monster_heal);
-
       },
 
       specialAttack : function(){
         var point = Math.ceil(Math.random() * 25);
         this.player_heal += point;
         this.monsterAttack();
-        console.log("M : " + this.monster_heal);
-        console.log("P : " + this.player_heal);
       },
 
       healUp : function(){
         var point = Math.ceil(Math.random() * 15);
         this.player_heal += point;
-        console.log("M : " + this.monster_heal);
-        console.log("P : " + this.player_heal);
       },
 
       giveUp : function(){
         this.player_heal = 0;
-        console.log("M : " + this.monster_heal);
-        console.log("P : " + this.player_heal);
       },
 
       monsterAttack : function(){
         var point = Math.ceil(Math.random() * 15);
         this.player_heal -= point;
-        console.log("M : " + this.monster_heal);
-        console.log("P : " + this.player_heal);
       }
 
   }
