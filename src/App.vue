@@ -18,20 +18,20 @@
             </div>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-if="!game_is_on">
         <div class="small-12 columns">
-            <button id="start-game">YENİ OYUN</button>
+            <button id="start-game" @click="startGame">YENİ OYUN</button>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-if="game_is_on">
         <div class="small-12 columns">
-            <button id="attack">SALDIRI</button>
-            <button id="special-attack">ÖZEL SALDIRI</button>
-            <button id="heal">İLK YARDIM</button>
-            <button id="give-up">PES ET!</button>
+            <button id="attack" @click="attack">SALDIRI</button>
+            <button id="special-attack" @click="specialAttack">ÖZEL SALDIRI</button>
+            <button id="heal" @click="healUp">İLK YARDIM</button>
+            <button id="give-up" @click="giveUp">PES ET!</button>
         </div>
     </section>
-    <section class="row log">
+    <section class="row log" v-if="game_is_on">
         <div class="small-12 columns">
             <ul>
                 <li>
@@ -48,10 +48,35 @@
 export default {
   data (){
     return{
-
+        player_heal : 100,
+        monster_heal : 100,
+        game_is_on : false
     }
   },
   
+  methods : {
+
+      startGame : function(){
+            this.game_is_on = true;
+      },
+
+      attack : function(){
+
+      },
+
+      specialAttack : function(){
+
+      },
+
+      healUp : function(){
+
+      },
+
+      giveUp : function(){
+
+      }
+
+  }
  
 }
 </script>
