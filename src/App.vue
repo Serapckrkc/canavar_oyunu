@@ -34,8 +34,8 @@
     <section class="row log" v-if="game_is_on">
         <div class="small-12 columns">
             <ul>
-                <li>
-
+                <li v-for="logs in game_logs" :key="logs">
+                        {{logs}}
                 </li>
             </ul>
         </div>
@@ -50,7 +50,8 @@ export default {
     return{
         player_heal : 100,
         monster_heal : 100,
-        game_is_on : false
+        game_is_on : false,
+        game_logs : [],
     }
   },
   
@@ -63,27 +64,36 @@ export default {
       attack : function(){
         var point = Math.ceil(Math.random() * 10);
         this.monster_heal -= point;
+        this.add_to_log({turn : "P", text: "Oyuncu Atagi! (" + point + ")"});
         this.monsterAttack();
       },
 
       specialAttack : function(){
         var point = Math.ceil(Math.random() * 25);
         this.monster_heal -= point;
+        this.add_to_log({turn : "P", text: "Ozel Oyuncu Atagi! (" + point + ")"});
         this.monsterAttack();
       },
 
       healUp : function(){
         var point = Math.ceil(Math.random() * 15);
         this.player_heal += point;
+        this.add_to_log({turn : "P", text: "Ilk Yardim (" + point + ")"});
       },
 
       giveUp : function(){
         this.player_heal = 0;
+        this.add_to_log({turn : "P", text: "Oyuncu Pes Etti!!!"});
       },
 
       monsterAttack : function(){
         var point = Math.ceil(Math.random() * 15);
         this.player_heal -= point;
+        this.add_to_log({turn : "M", text: "Canavar Atagi! (" + point + ")"});
+      },
+
+      add_to_log : function(logs){
+          this.game_logs.push(logs);
       }
 
   },
@@ -92,6 +102,10 @@ export default {
       player_heal : function(value){
           if(value <= 0){
               this.player_heal = 0;
+              if(confirm("OYUNU KAYBETTIN!")){
+                  this.player_heal = 100;
+                  this.monster_heal = 100;
+              }
           } else if(value >= 100){
               this.player_heal = 100;
           }
@@ -100,6 +114,10 @@ export default {
        monster_heal : function(value){
           if(value <= 0){
               this.monster_heal = 0;
+               if(confirm("OYUNU KAZANDIN!")){
+                  this.player_heal = 100;
+                  this.monster_heal = 100;
+              }
           }
       }
   }
