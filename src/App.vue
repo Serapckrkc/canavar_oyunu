@@ -57,23 +57,44 @@ export default {
   methods : {
 
       startGame : function(){
-            this.game_is_on = true;
+        this.game_is_on = true;
       },
 
       attack : function(){
+        var point = Math.ceil(Math.random() * 10);
+        this.monster_heal -= point;
+        this.monsterAttack();
+        console.log("M : " + this.monster_heal);
+        console.log("P : " + this.monster_heal);
 
       },
 
       specialAttack : function(){
-
+        var point = Math.ceil(Math.random() * 25);
+        this.player_heal += point;
+        this.monsterAttack();
+        console.log("M : " + this.monster_heal);
+        console.log("P : " + this.player_heal);
       },
 
       healUp : function(){
-
+        var point = Math.ceil(Math.random() * 15);
+        this.player_heal += point;
+        console.log("M : " + this.monster_heal);
+        console.log("P : " + this.player_heal);
       },
 
       giveUp : function(){
+        this.player_heal = 0;
+        console.log("M : " + this.monster_heal);
+        console.log("P : " + this.player_heal);
+      },
 
+      monsterAttack : function(){
+        var point = Math.ceil(Math.random() * 15);
+        this.player_heal -= point;
+        console.log("M : " + this.monster_heal);
+        console.log("P : " + this.player_heal);
       }
 
   }
