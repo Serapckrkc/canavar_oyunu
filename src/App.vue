@@ -31,11 +31,13 @@
             <button id="give-up" @click="giveUp">PES ET!</button>
         </div>
     </section>
-    <section class="row log" v-if="game_is_on">
+    <section class="row log" v-if="game_logs.length > 0">
         <div class="small-12 columns">
             <ul>
-                <li v-for="logs in game_logs" :key="logs">
-                        {{logs}}
+                <li 
+                :class="{'player-turn' : logs.turn== 'P', 'monster-turn' : logs.turn == 'M'}"
+                v-for="logs in game_logs" :key="logs">
+                        {{logs.text}}
                 </li>
             </ul>
         </div>
@@ -105,6 +107,7 @@ export default {
               if(confirm("OYUNU KAYBETTIN!")){
                   this.player_heal = 100;
                   this.monster_heal = 100;
+                  this.game_logs=[];
               }
           } else if(value >= 100){
               this.player_heal = 100;
@@ -117,6 +120,7 @@ export default {
                if(confirm("OYUNU KAZANDIN!")){
                   this.player_heal = 100;
                   this.monster_heal = 100;
+                  this.game_logs=[];
               }
           }
       }
